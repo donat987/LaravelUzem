@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('adattar', function (Blueprint $table) {
+        Schema::create('datatypes', function (Blueprint $table) {
             $table->id();
-            $table->integer('BeolvasottAdat');
-            $table->foreignId('SzenzorID')->constrained('szenzor');
-            $table->foreignId('UzemID')->constrained('uzemek');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adattar');
+        Schema::dropIfExists('datatype');
     }
 };

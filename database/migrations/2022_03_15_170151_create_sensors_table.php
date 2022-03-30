@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('szenzor', function (Blueprint $table) {
+        Schema::create('sensors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('BerendezesID')->constrained('berendezes');
-            $table->foreignId('AdattipusID')->constrained('adattipus');
+            $table->unsignedBigInteger('machine_id');
+            $table->unsignedBigInteger('datatype_id');
             $table->timestamps();
+            $table->foreign('machine_id')->references('id')->on('machines')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('datatype_id')->references('id')->on('datatypes')->onDelete('cascade')->onUpdate('cascade');
+            
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('szenzor');
+        Schema::dropIfExists('sensor');
     }
 };

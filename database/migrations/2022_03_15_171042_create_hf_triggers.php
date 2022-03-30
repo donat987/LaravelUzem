@@ -14,15 +14,15 @@ return new class extends Migration
     public function up()
     {
         DB::unprepared('
-        CREATE TRIGGER hazi BEFORE INSERT ON adattar 
+        CREATE TRIGGER hazi BEFORE INSERT ON data
         FOR EACH ROW 
         BEGIN 
-            DECLARE regiadat FLOAT DEFAULT NULL; 
-            SET regiadat = (SELECT BeolvasottAdat from adattar
-            WHERE SzenzorID = new.SzenzorID
+            DECLARE olddata FLOAT DEFAULT NULL; 
+            SET olddata = (SELECT scandata from data
+            WHERE sensor_id = new.sensor_id
             ORDER by created_at DESC LIMIT 1); 
-            IF regiadat IS NOT NULL THEN 
-                SET new.BeolvasottAdat = (new.BeolvasottAdat - regiadat); 
+            IF olddata IS NOT NULL THEN 
+                SET new.scandata = (new.scandata - olddata); 
             END IF; 
         END;
         ');
