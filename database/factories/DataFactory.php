@@ -18,10 +18,11 @@ class DataFactory extends Factory
     public function definition()
     {
         return [
-            'scandata'  => $this->faker->numberBetween($min = 1, $max = 5000),
+            'scandata'  => $this->faker->numberBetween($min = 200, $max = 250),
             'sensor_id'  => Sensor::inRandomOrder()->first()->id,
             'company_id'  => Company::inRandomOrder()->first()->id,
-            
+            'created_at'  =>  $this->faker->dateTimeThisDecade($max = 'now', $timezone = null),
+
         ];
     }
 }
